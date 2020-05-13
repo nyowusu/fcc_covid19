@@ -1,3 +1,3 @@
 <script>
-  export let segment;
+  export const segment = 0;
 </script>
