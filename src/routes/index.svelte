@@ -1,15 +1,12 @@
 <script context="module">
-
-  import request from '../data/request.js'
+  import request from "../data/request.js";
 
   export async function preload(page) {
     try {
       const usStats = await request.usStats();
 
-      return { usStats}
-    } catch (err) {
-      
-    }
+      return { usStats };
+    } catch (err) {}
   }
 </script>
 
@@ -19,7 +16,6 @@
   import TableContainer from "../components/table-container.svelte";
 
   export let usStats;
-  
 </script>
 
 <svelte:head>
@@ -33,6 +29,6 @@
 </div>
 
 <h1>Index</h1>
-<CovidState {...usStats}/>
-<CovidChart />
-<TableContainer /> 
+<CovidState {...usStats}></CovidState>
+<CovidChart></CovidChart>
+<TableContainer></TableContainer>
