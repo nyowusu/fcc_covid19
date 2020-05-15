@@ -1,7 +1,26 @@
+<script context="module">
+
+  import request from '../data/request.js'
+
+  export async function preload(page) {
+    try {
+      const usStats = await request.usStats();
+
+      return { usStats}
+    } catch (err) {
+      
+    }
+  }
+</script>
+
 <script>
   import CovidState from "../components/covid-stat.svelte";
   import CovidChart from "../components/covid-chart.svelte";
   import TableContainer from "../components/table-container.svelte";
+
+  export let usStats;
+  
+  console.log(usStats, "usStats");
 </script>
 
 <svelte:head>
@@ -13,6 +32,11 @@
     <h1>Covid 19 - US</h1>
   </div>
 </div>
+
+<h1>{usStats.cases}</h1>
+<br>
+<br>
+<br>
 
 <h1>Index</h1>
 <CovidState />
