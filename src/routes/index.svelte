@@ -20,7 +20,6 @@
 
   export let usStats;
   
-  console.log(usStats, "usStats");
 </script>
 
 <svelte:head>
@@ -33,12 +32,7 @@
   </div>
 </div>
 
-<h1>{usStats.cases}</h1>
-<br>
-<br>
-<br>
-
 <h1>Index</h1>
-<CovidState />
+<CovidState {...usStats}/>
 <CovidChart />
 <TableContainer /> 
