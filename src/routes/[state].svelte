@@ -1,17 +1,20 @@
 <script context="module">
   import { stateNamesObject } from "../data/state-names.js";
+  import request from "../data/request.js";
 
   export async function preload(page) {
     const state = page.params["state"].toUpperCase();
+    const stateName = stateNamesObject[state];
 
-    if (stateNamesObject[state] === undefined) {
-      console.log("show get error");
+    if (stateName === undefined) {
       this.error(404, "State Not Found");
       return;
     }
 
     try {
-      return { state: page.params["state"] };
+      const stateStats = await request.stateStats(state);
+
+      return { state, stateStats, stateName };
     } catch (err) {
       this.error(500, "There was an error loading the data. Please try again in 5 minutes");
     }
@@ -24,6 +27,8 @@
   import TableContainer from "../components/table-container.svelte";
 
   export let state;
+  export let stateStats;
+  export let stateName;
 </script>
 
 <svelte:head>
@@ -33,8 +38,9 @@
 <div class="section header">
   <div class="container">
     <h1>Covid 19 - {state}</h1>
+    <h2>{stateName} State</h2>
   </div>
 </div>
 
-<CovidState></CovidState>
+<CovidState { ...stateStats}></CovidState>
 <CovidChart></CovidChart>
