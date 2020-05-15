@@ -6,7 +6,9 @@
       const usStats = await request.usStats();
 
       return { usStats };
-    } catch (err) {}
+    } catch (err) {
+      return this.error(500, "There was an error loading the data. Please try again in 5 minutes");
+    }
   }
 </script>
 

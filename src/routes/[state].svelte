@@ -1,6 +1,20 @@
 <script context="module">
+  import { stateNamesObject } from "../data/state-names.js";
+
   export async function preload(page) {
-    return { state: page.params['state'] };
+    const state = page.params["state"].toUpperCase();
+
+    if (stateNamesObject[state] === undefined) {
+      console.log("show get error");
+      this.error(404, "State Not Found");
+      return;
+    }
+
+    try {
+      return { state: page.params["state"] };
+    } catch (err) {
+      this.error(500, "There was an error loading the data. Please try again in 5 minutes");
+    }
   }
 </script>
 
@@ -22,5 +36,5 @@
   </div>
 </div>
 
-<CovidState />
-<CovidChart />
+<CovidState></CovidState>
+<CovidChart></CovidChart>
