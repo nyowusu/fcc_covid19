@@ -5,7 +5,9 @@
     try {
       const usStats = await request.usStats();
 
-      return { usStats };
+      const historic = await request.historicUS();
+
+      return { usStats, historic };
     } catch (err) {
       return this.error(500, "There was an error loading the data. Please try again in 5 minutes");
     }
@@ -18,6 +20,7 @@
   import TableContainer from "../components/table-container.svelte";
 
   export let usStats;
+  export let historic;
 </script>
 
 <svelte:head>
@@ -30,7 +33,6 @@
   </div>
 </div>
 
-<h1>Index</h1>
 <CovidState {...usStats}></CovidState>
 <CovidChart></CovidChart>
 <TableContainer></TableContainer>
