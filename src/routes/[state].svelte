@@ -15,9 +15,8 @@
       const stateStats = await request.stateStats(state);
 
       const historic = await request.historicState(state);
-      return { state, stateStats, stateName, historic };
+      return { stateStats, stateName, historic };
     } catch (err) {
-      console.error(err);
       this.error(500, "There was an error loading the data. Please try again in 5 minutes");
     }
   }
@@ -28,12 +27,11 @@
   import CovidChart from "../components/covid-chart.svelte";
   import TableContainer from "../components/table-container.svelte";
 
-  export let state;
   export let stateStats;
   export let stateName;
   export let historic;
 
-  const title = `Covid 19 - ${state}`;
+  const title = `Covid 19 - ${stateName}`;
 </script>
 
 <svelte:head>
@@ -43,7 +41,6 @@
 <div class="section header">
   <div class="container">
     <h1>{title}</h1>
-    <h2>{stateName} State</h2>
   </div>
 </div>
 

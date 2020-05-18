@@ -15,7 +15,7 @@
       data: { datasets: historic },
       options: {
         responsive: true,
-        tooltip: {
+        tooltips: {
           callbacks: {
             label: function (toolTipItem, data) {
               let label = data.datasets[toolTipItem.datasetIndex].label || "";
