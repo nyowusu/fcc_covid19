@@ -21,6 +21,8 @@
 
   export let usStats;
   export let historic;
+
+  const title = "Covid 19 - US";
 </script>
 
 <svelte:head>
@@ -29,10 +31,10 @@
 
 <div class="section header">
   <div class="container">
-    <h1>Covid 19 - US</h1>
+    <h1>{title}</h1>
   </div>
 </div>
 
 <CovidState {...usStats}></CovidState>
-<CovidChart></CovidChart>
+<CovidChart {historic} {title}></CovidChart>
 <TableContainer></TableContainer>
