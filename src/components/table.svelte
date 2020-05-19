@@ -100,6 +100,7 @@
 
     caption {
       display: table-caption;
+      margin: 0 0 1rem 0;
     }
   }
 
@@ -118,7 +119,7 @@
       </caption>
       <thead>
         <tr>
-          {#each tableHeading as td}
+          {#each tableHeading as td (td.key)}
           <th scope="col" class="has-text-weight-bold">{td.text}</th>
           {/each}
         </tr>

@@ -5,44 +5,28 @@
   export let tableData;
 
   let sortOptions = [
-    { value: 0, text: "State Name" },
-    { value: 1, text: "Cases" },
-    { value: 2, text: "Deaths" },
-    { value: 3, text: "Total Tested" },
+    { key: "names", text: "State Name" },
+    { key: "cases", text: "Cases" },
+    { key: "deaths", text: "Deaths" },
+    { key: "totalTested", text: "Total Tested" },
   ];
-  let sortOption = 0;
-  let filteredData = tableData;
-  let sortedTableData = sortTableData(0);
 
-  function setSortOption(e) {
-    sortedTableData = sortTableData(e.detail.option);
-  }
+  let filter = "";
+  let sortBySelected = sortOptions[0].text;
+  $: sortedTableData = sortTableData(tableData, filter, sortBySelected);
 
-  function setFilterValue(e) {
-    filteredData = filteredData.filter((data) => data.stateName.toLowerCase().includes(e.detail.value));
-    sortedTableData = filteredData;
-  }
+  function sortTableData(states, filter, sortBySelected) {
+    const filteredData = states.filter((state) => {
+      return filter === "" || state.stateName.toLowerCase().includes(filter.toLowerCase());
+    });
 
-  function sortTableData(sort) {
-    let data;
-
-    switch (sort) {
-      case 1:
-        data = filteredData.sort((a, b) => a.cases - b.cases);
-        break;
-      case 2:
-        data = filteredData.sort((a, b) => a.deaths - b.deaths);
-        break;
-      case 3:
-        data = filteredData.sort((a, b) => a.totalTested - b.totalTested);
-        break;
-      default:
-        data = filteredData.sort((a, b) => (a.stateName > b.stateName ? 1 : -1));
+    if (sortBySelected !== sortOptions[0].text) {
+      filteredData.sort((a, b) => +a[sortBySelected] - +b[sortBySelected]);
     }
 
-    return data;
+    return filteredData;
   }
 </script>
 
-<TableFilter on:resort="{setSortOption}" on:filter="{setFilterValue}" {sortOptions}> </TableFilter>
+<TableFilter bind:filter bind:sortBySelected {sortOptions}> </TableFilter>
 <Table tableData="{sortedTableData}" tableHeading="{sortOptions}"></Table>
