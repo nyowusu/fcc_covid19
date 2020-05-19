@@ -5,7 +5,6 @@
   export let historic;
   export let title;
 
-  let hideChart = false;
   let chartElement;
   let chart;
 
@@ -61,12 +60,10 @@
   }
 
   onMount(() => {
-    if (historic && document.body.clientWidth > 680) {
+    if (historic) {
       createChart();
       return;
     }
-
-    hideChart = true;
   });
 
   onDestroy(() => {
@@ -76,8 +73,18 @@
   });
 </script>
 
-{#if !hideChart}
+<style>
+  .container {
+    display: none;
+  }
+
+  @media (min-width: 690px) {
+    .container {
+      display: block;
+    }
+  }
+</style>
+
 <div class="container">
   <canvas bind:this="{chartElement}"></canvas>
 </div>
-{/if}

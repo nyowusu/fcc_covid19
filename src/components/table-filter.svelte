@@ -26,12 +26,14 @@
 <div class="section">
   <div class="container">
     <div class="columns">
-      <div class="column is-12-mobile is-6-tablet">
+      <div class="column is-12-mobile is-6-tablet is-6-desktop">
         <input bind:value="{filter}" type="text" class="input" placeholder="Filter States" on:input="{inputChange}" />
       </div>
-      <div class="column is-12-mobile is-6-tablet">
+      <div class="column is-12-mobile is-6-tablet is-6-desktop">
         <div class="columns">
-          <span class="is-1 has-text-right-tablet has-text-left-mobile column is-12-mobile is-3-tablet">Sort by:</span>
+          <label for="sorting" class="is-1 has-text-right-tablet has-text-left-mobile column is-12-mobile is-3-tablet"
+            >Sort by:</label
+          >
 
           <select
             name="sorting"
@@ -53,7 +55,7 @@
 <style>
   input,
   select,
-  span {
+  label {
     font-size: medium;
   }
 
@@ -70,7 +72,7 @@
   @media (min-width: 769px) {
     input,
     select,
-    span {
+    label {
       font-size: large;
     }
   }
