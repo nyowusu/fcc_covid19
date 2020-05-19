@@ -11,16 +11,16 @@ async function usStats() {
   return parsers.usStatsParser(response.data);
 }
 
-async function stateStats(state) {
-  const response = await request("https://covidtracking.com/api/v1/states/current.json");
-
-  return parsers.stateStatsParser(state, response.data);
-}
-
 async function historicUS() {
   const response = await request("https://covidtracking.com/api/v1/us/daily.json");
 
   return parsers.historicUS(response.data);
+}
+
+async function stateStats(state) {
+  const response = await request("https://covidtracking.com/api/v1/states/current.json");
+
+  return parsers.stateStatsParser(state, response.data);
 }
 
 async function historicState(state) {
@@ -29,9 +29,16 @@ async function historicState(state) {
   return parsers.historicState(state, response.data);
 }
 
+async function statesData() {
+  const response = await request("https://covidtracking.com/api/v1/states/current.json");
+
+  return parsers.stateTable(response.data);
+}
+
 export default {
   usStats,
-  stateStats,
   historicUS,
+  stateStats,
   historicState,
+  statesData,
 };

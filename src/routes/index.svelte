@@ -7,8 +7,12 @@
 
       const historic = await request.historicUS();
 
-      return { usStats, historic };
+      // get state table data
+      const tableData = await request.statesData();
+
+      return { usStats, historic, tableData };
     } catch (err) {
+      console.log(err);
       return this.error(500, "There was an error loading the data. Please try again in 5 minutes");
     }
   }
@@ -21,6 +25,7 @@
 
   export let usStats;
   export let historic;
+  export let tableData;
 
   const title = "Covid 19 - US";
 </script>
@@ -37,4 +42,4 @@
 
 <CovidState {...usStats}></CovidState>
 <CovidChart {historic} {title}></CovidChart>
-<TableContainer></TableContainer>
+<TableContainer {tableData}></TableContainer>

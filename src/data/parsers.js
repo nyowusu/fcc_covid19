@@ -1,5 +1,6 @@
 import format from "./format";
 import moment from "moment";
+import { stateNamesObject } from "../data/state-names.js";
 
 function parseRawStats(rawStats) {
   return {
@@ -87,9 +88,24 @@ function parseHistoric(historicData) {
   }, []);
 }
 
+function stateTable(stateData) {
+  return stateData.reduce((acc, next) => {
+    acc.push({
+      state: next.state,
+      cases: next.positive,
+      deaths: next.death,
+      totalTested: next.totalTestResults,
+      stateName: stateNamesObject[next.state],
+    });
+
+    return acc;
+  }, []);
+}
+
 export default {
   usStatsParser,
   stateStatsParser,
   historicUS,
   historicState,
+  stateTable,
 };
