@@ -12,7 +12,6 @@
 
       return { usStats, historic, tableData };
     } catch (err) {
-      console.log(err);
       return this.error(500, "There was an error loading the data. Please try again in 5 minutes");
     }
   }

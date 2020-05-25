@@ -1,18 +1,12 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-
-  // event dispatchers
-  const sortEventDispatcher = createEventDispatcher();
-  const filterEventDispatcher = createEventDispatcher();
-
   export let sortOptions;
 
-  let filter = "";
-  let selected;
+  export let filter = "";
+  export let sortBySelected = sortOptions[0].text;
 
   function changeSortOption() {
     sortEventDispatcher("resort", {
-      option: selected,
+      option: sortBySelected,
     });
   }
 
@@ -26,22 +20,23 @@
 <div class="section">
   <div class="container">
     <div class="columns">
-      <div class="column is-12-mobile is-6-tablet">
-        <input bind:value="{filter}" type="text" class="input" placeholder="Filter States" on:input="{inputChange}" />
+      <div class="column is-12-mobile is-6-tablet is-6-desktop">
+        <input bind:value="{filter}" type="text" class="input" placeholder="Filter States" />
       </div>
-      <div class="column is-12-mobile is-6-tablet">
+      <div class="column is-12-mobile is-6-tablet is-6-desktop">
         <div class="columns">
-          <span class="is-1 has-text-right-tablet has-text-left-mobile column is-12-mobile is-3-tablet">Sort by:</span>
+          <label for="sorting" class="is-1 has-text-right-tablet has-text-left-mobile column is-12-mobile is-3-tablet"
+            >Sort by:</label
+          >
 
           <select
             name="sorting"
             id="sorting"
-            bind:value="{selected}"
+            bind:value="{sortBySelected}"
             class="select column is-12-mobile is-9-tablet"
-            on:change="{changeSortOption}"
           >
-            {#each sortOptions as opt}
-            <option value="{opt.value}">{opt.text}</option>
+            {#each sortOptions as opt (opt.key)}
+            <option value="{opt.key}">{opt.text}</option>
             {/each}
           </select>
         </div>
@@ -53,7 +48,7 @@
 <style>
   input,
   select,
-  span {
+  label {
     font-size: medium;
   }
 
@@ -70,7 +65,7 @@
   @media (min-width: 769px) {
     input,
     select,
-    span {
+    label {
       font-size: large;
     }
   }
